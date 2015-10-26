@@ -1,0 +1,49 @@
+<html ng-app="SecretSantaNameDrawingApp">
+<head>
+  <meta charset="UTF-8">
+  <title>SecretSantaNameDrawingApp</title>
+  <style>
+    body     { font-family: sans-serif; padding: 30px; }
+    button   { font-size: 25px; }
+    textarea {
+      font-family: sans-serif;
+      font-size: 25px;
+      width: 50%;
+    }
+  </style>
+  <script src="js/underscore.js"></script>
+  <script src="js/angular.js"></script>
+  <script src="js/angular-ui-router.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body ng-controller="SecretSantaNameDrawingController">
+  <div ui-view></div>
+</body>
+</html>
+
+<script type="text/ng-template" id="input.html">
+  <h1>Who participates in the name drawing?</h1>
+  <form ng-submit="drawNames(commaSeparatedListOfNames);">
+    <textarea rows="10"
+              placeholder="Who participates in the name drawing? (comma-separated list of names)"
+              ng-model="commaSeparatedListOfNames">
+    </textarea>
+    <br>
+    <br>
+    <button>Secret Santa!</button>
+    <br>
+    <br>
+  </form>
+</script>
+
+<script type="text/ng-template" id="output.html">
+  <h1>Click on names to uncover secrets</h1>
+  <div ng-repeat="(hashKeySecretSanta, hashValueGiftRecipient) in secretSantaHash">
+    <button ng-click="setPersonWhoseNameWasLastClickedTo(hashKeySecretSanta);">
+      {{ hashKeySecretSanta }}{{ personWhoseNameWasLastClicked === hashKeySecretSanta ? ", you're " + hashValueGiftRecipient + "'s secret Santa!" : "" }}
+    </button>
+    <br>
+    <br>
+  </div>
+</script>
+
